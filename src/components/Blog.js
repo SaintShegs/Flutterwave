@@ -9,26 +9,31 @@ const Blog = () => {
 
 
 
+   /**
+    * It fetches data from the API and sets the data to the state.
+    */
     const data=async ()=>{
-        setLoading(true);
-        const response = await fetch('https://techcrunch.com/wp-json/wp/v2/posts');
-        const data = await response.json();
-        setBlogs(data);
-        console.log(data);
-
-        setTimeout(() => {
-        setLoading(false);
-        }, 1000);
-
+        try {
+            setLoading(true);
+            const response = await fetch('https://techcrunch.com/wp-json/wp/v2/posts');
+            const data = await response.json();
+            setBlogs(data);
+            console.log(data);
+    
+            setTimeout(() => {
+            setLoading(false);
+            }, 1000);
+        }
+        catch(error){
+            console.log(error);
+            alert("Your request cannot be completed, Please check your connection and again.")
+        }
     }
     
 
-
-    useEffect(()=>{
-
-        
+/* A hook that is used to fetch data from an API. */
+    useEffect(()=>{  
         data();
-
     }
     ,[]);
 
@@ -36,11 +41,8 @@ const Blog = () => {
 
   return (
     <div>
+        {/* Passing the data to the BlogList component. which is a reuseable component */}
         <BlogList posts={blogs} loading={loading}/>
-
-        
-        {/* <BlogList posts={blogs}/> */}
-
     </div>
   )
 }

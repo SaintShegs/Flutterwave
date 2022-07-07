@@ -14,27 +14,54 @@ const BlogDetail = () => {
 
     const [loading, setLoading] = useState(true);
 
-    const articles=async ()=>{
-        const response = await fetch(`https://techcrunch.com/wp-json/wp/v2/posts`);
+ /**
+  * It fetches data from the WordPress API and sets the data to the state.
+  * Display an error message if the data is not fetched.
+  */
+    const articles = async () => {
+      try {
+        const response = await fetch(
+          `https://techcrunch.com/wp-json/wp/v2/posts`
+        );
         const data = await response.json();
         setmoreArticles(data);
         console.log(data);
-    }
+      } catch (error) {
+        console.log(error);
+                    alert("Your request cannot be completed, Please check your connection and again.")
 
+      }
+    };
+
+/**
+ * It fetches data from the API and sets the data to the state.
+ * display an error message if data is not fetched.
+ */
     const data = async () => {
+      try {
         setLoading(true);
-        const response = await fetch(`https://techcrunch.com/wp-json/wp/v2/posts/${info}`);
+        const response = await fetch(
+          `https://techcrunch.com/wp-json/wp/v2/posts/${info}`
+        );
         const data = await response.json();
         setMoreinfo(data);
         console.log(data);
 
         setTimeout(() => {
-            setLoading(false);
-            }, 100);
-    }
+          setLoading(false);
+        }, 100);
+      } catch (error) {
+        console.log(error);
+        alert("Your request cannot be completed, Please check your connection and again.")
 
+      }
+    };
+
+
+    /* Slicing the array of articles to only 3 articles. */
     const slicedArticle=moreArticles.slice(0,3);
 
+/* A hook that is used to fetch data from the API. */
     useEffect(() => {
         data();
         articles();
@@ -46,6 +73,10 @@ const BlogDetail = () => {
   
   return (
       <div className='blog__details'>
+
+     {/*A ternary operator. It is used to check if the loading is true or false. If it is true, it will
+     display the loading icon. If it is false, it will display the blog details. */ }
+
       {loading ? <h1>Please wait... <i className="fas fa-cog fa-spin"></i></h1> :
         <div className='blog__detail'>
             <div className="blog__detail__author">
@@ -62,7 +93,7 @@ const BlogDetail = () => {
             </div>
 
             <div>
-                <Link to="/"><i className="fa fa-arrow-left"></i> Back to Blogs</Link>
+                <Link role="link" to="/"><i className="fa fa-arrow-left"></i> Back to Blogs</Link>
             </div>
         </div>
         }
