@@ -28,7 +28,7 @@ const BlogDetail = () => {
         console.log(data);
       } catch (error) {
         console.log(error);
-                    alert("Your request cannot be completed, Please check your connection and again.")
+                    alert("Your request cannot be completed, Please check your connection and try again.")
 
       }
     };
@@ -52,7 +52,7 @@ const BlogDetail = () => {
         }, 100);
       } catch (error) {
         console.log(error);
-        alert("Your request cannot be completed, Please check your connection and again.")
+        alert("Your request cannot be completed, Please check your connection and try again.")
 
       }
     };

@@ -26,7 +26,7 @@ const Blog = () => {
         }
         catch(error){
             console.log(error);
-            alert("Your request cannot be completed, Please check your connection and again.")
+            alert("Your request cannot be completed, Please check your connection and try again.")
         }
     }
     
